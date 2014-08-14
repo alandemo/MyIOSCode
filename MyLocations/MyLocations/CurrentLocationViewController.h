@@ -10,6 +10,17 @@
 
 @interface CurrentLocationViewController : UIViewController
 
+@property (nonatomic,strong) IBOutlet UILabel* messageLabel;
+
+@property (nonatomic,strong) IBOutlet UILabel* latitudeLabel;
+
+@property (nonatomic,strong) IBOutlet UILabel* longitudelabel;
+
+@property (nonatomic,strong) IBOutlet UILabel* addressLabel;
+
+@property (nonatomic,strong) IBOutlet UIButton* tagButton;
+
+@property (nonatomic,strong) IBOutlet UIButton* getButton;
 
 @end
 
