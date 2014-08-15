@@ -14,6 +14,9 @@
 		0503EEFC199C5C2200131702 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0503EEFA199C5C2200131702 /* Main.storyboard */; };
 		0503EEFE199C5C2200131702 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0503EEFD199C5C2200131702 /* Images.xcassets */; };
 		0503EF0A199C5C2200131702 /* MyLocationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0503EF09199C5C2200131702 /* MyLocationsTests.m */; };
+		05096BC3199DF74900E909F9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05096BC2199DF74900E909F9 /* CoreLocation.framework */; };
+		05096BC5199DFC2C00E909F9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05096BC4199DFC2C00E909F9 /* UIKit.framework */; };
+		05096BC7199DFC3D00E909F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05096BC6199DFC3D00E909F9 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +44,9 @@
 		0503EF03199C5C2200131702 /* MyLocationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyLocationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0503EF08199C5C2200131702 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0503EF09199C5C2200131702 /* MyLocationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyLocationsTests.m; sourceTree = "<group>"; };
+		05096BC2199DF74900E909F9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		05096BC4199DFC2C00E909F9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		05096BC6199DFC3D00E909F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +54,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05096BC7199DFC3D00E909F9 /* Foundation.framework in Frameworks */,
+				05096BC5199DFC2C00E909F9 /* UIKit.framework in Frameworks */,
+				05096BC3199DF74900E909F9 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +73,9 @@
 		0503EEE1199C5C2200131702 = {
 			isa = PBXGroup;
 			children = (
+				05096BC6199DFC3D00E909F9 /* Foundation.framework */,
+				05096BC4199DFC2C00E909F9 /* UIKit.framework */,
+				05096BC2199DF74900E909F9 /* CoreLocation.framework */,
 				0503EEEC199C5C2200131702 /* MyLocations */,
 				0503EF06199C5C2200131702 /* MyLocationsTests */,
 				0503EEEB199C5C2200131702 /* Products */,
@@ -170,6 +182,7 @@
 				TargetAttributes = {
 					0503EEE9199C5C2200131702 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = ZGFZPU8S2T;
 					};
 					0503EF02199C5C2200131702 = {
 						CreatedOnToolsVersion = 6.0;
@@ -291,7 +304,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -326,7 +339,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -338,7 +351,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MyLocations/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -349,7 +364,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MyLocations/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -408,6 +425,7 @@
 				0503EF0F199C5C2200131702 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0503EF10199C5C2200131702 /* Build configuration list for PBXNativeTarget "MyLocationsTests" */ = {
 			isa = XCConfigurationList;
@@ -416,6 +434,7 @@
 				0503EF12199C5C2200131702 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

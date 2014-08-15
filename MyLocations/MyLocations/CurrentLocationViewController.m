@@ -12,7 +12,9 @@
 
 @end
 
-@implementation CurrentLocationViewController
+@implementation CurrentLocationViewController{
+    CLLocationManager* locationManager;
+}
             
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,5 +25,43 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    
+    if (self == [super initWithCoder:aDecoder]) {
+        locationManager = [[CLLocationManager alloc]init];
+    }
+    
+    return self;
+    
+}
+
+- (IBAction)getLocation:(id)sender
+{
+    
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    [locationManager startUpdatingLocation];
+    
+    
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    
+    NSLog(@"didFailUpdateToLocation %@",error);
+    
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    
+    NSLog(@"didUpdateTolocation %@" , [locations objectAtIndex:0]);
+    
+}
+
+
 
 @end

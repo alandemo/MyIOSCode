@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface CurrentLocationViewController : UIViewController
+@interface CurrentLocationViewController : UIViewController<CLLocationManagerDelegate>
 
 @property (nonatomic,strong) IBOutlet UILabel* messageLabel;
 
@@ -21,6 +22,9 @@
 @property (nonatomic,strong) IBOutlet UIButton* tagButton;
 
 @property (nonatomic,strong) IBOutlet UIButton* getButton;
+
+
+- (IBAction)getLocation:(id)sender;
 
 @end
 
