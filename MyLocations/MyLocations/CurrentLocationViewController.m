@@ -232,13 +232,14 @@
     
 }
 
-- (NSString *)stringFromPlacemark:(CLPlacemark *)placemark
+- (NSString *)stringFromPlacemark:(CLPlacemark *)thePlacemark
 {
     
+    
     return [NSString stringWithFormat:@"%@  %@\n%@  %@  %@",
-            placemark.subThoroughfare,placemark.thoroughfare,
-            placemark.locality,placemark.administrativeArea,
-            placemark.postalCode];
+            thePlacemark.subThoroughfare,thePlacemark.thoroughfare,
+            thePlacemark.locality,thePlacemark.administrativeArea,
+            thePlacemark.postalCode];
 }
 
 @end
