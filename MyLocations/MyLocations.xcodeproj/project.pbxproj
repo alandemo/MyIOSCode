@@ -17,6 +17,7 @@
 		05096BC3199DF74900E909F9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05096BC2199DF74900E909F9 /* CoreLocation.framework */; };
 		05096BC5199DFC2C00E909F9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05096BC4199DFC2C00E909F9 /* UIKit.framework */; };
 		05096BC7199DFC3D00E909F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05096BC6199DFC3D00E909F9 /* Foundation.framework */; };
+		E702CCA719A1F48800D59D0D /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E702CCA619A1F48800D59D0D /* LocationDetailsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,8 @@
 		05096BC2199DF74900E909F9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		05096BC4199DFC2C00E909F9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		05096BC6199DFC3D00E909F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E702CCA519A1F48800D59D0D /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailsViewController.h; sourceTree = "<group>"; };
+		E702CCA619A1F48800D59D0D /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,8 @@
 				0503EEF2199C5C2200131702 /* AppDelegate.m */,
 				0503EEF4199C5C2200131702 /* CurrentLocationViewController.h */,
 				0503EEF5199C5C2200131702 /* CurrentLocationViewController.m */,
+				E702CCA519A1F48800D59D0D /* LocationDetailsViewController.h */,
+				E702CCA619A1F48800D59D0D /* LocationDetailsViewController.m */,
 				0503EEF7199C5C2200131702 /* SecondViewController.h */,
 				0503EEF8199C5C2200131702 /* SecondViewController.m */,
 				0503EEFA199C5C2200131702 /* Main.storyboard */,
@@ -237,6 +242,7 @@
 				0503EEF3199C5C2200131702 /* AppDelegate.m in Sources */,
 				0503EEF6199C5C2200131702 /* CurrentLocationViewController.m in Sources */,
 				0503EEF0199C5C2200131702 /* main.m in Sources */,
+				E702CCA719A1F48800D59D0D /* LocationDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

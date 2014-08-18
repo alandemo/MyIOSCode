@@ -94,11 +94,11 @@
     
     if(updatingLocation){
         
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didTimeOut:) object:nil];
+        
         [locationManager stopUpdatingLocation];
         locationManager.delegate = nil;
         updatingLocation = NO;
-        location = nil;
-        lastLocationError = nil;
     }
     
 }
@@ -112,6 +112,26 @@
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
         [locationManager startUpdatingLocation];
         updatingLocation = YES;
+        
+        [self performSelector:@selector(didTimeOut:) withObject:nil afterDelay:60];
+        
+    }
+    
+}
+
+- (void) didTimeOut:(id)obj
+{
+    
+    NSLog(@"******************** Time out!");
+    
+    if(location == nil){
+        
+        [self stopUpdatingLocation];
+        
+        lastLocationError = [NSError errorWithDomain:@"MyLocationsErrorDomain" code:1 userInfo:nil];
+        
+        [self updateLabels];
+        [self configureGetButton];
         
     }
     
@@ -132,7 +152,15 @@
         return;
     }
     
+    
+    CLLocationDistance distance = MAXFLOAT;
+    
+    if (location!=nil) {
+        distance = [newLocation distanceFromLocation:location];
+    }
+    
     if (location == nil || location.horizontalAccuracy > newLocation.horizontalAccuracy) {
+        
         lastLocationError = nil;
         location = newLocation;
         [self updateLabels];
@@ -141,31 +169,48 @@
             NSLog(@"************* We are done!");
             [self stopUpdatingLocation];
             [self configureGetButton];
+            
+            
+            if(distance > 0){
+                performingReverseGeocoder = NO;
+            }
         }
         
-    }
+        if (!performingReverseGeocoder) {
+            NSLog(@"************ start reverse gecoder");
+            
+            performingReverseGeocoder = YES;
+            
+            [geocoder reverseGeocodeLocation:location completionHandler:
+             ^(NSArray *placemarks, NSError *error) {
+                 NSLog(@"Found placemarks %@  error %@",placemarks,error);
+                 
+                 lastGeocoderError = error;
+                 
+                 if (error == nil && [placemarks count] > 0) {
+                     placemark = [placemarks lastObject];
+                 }else{
+                     placemark = nil;
+                 }
+                 
+                 performingReverseGeocoder = NO;
+                 [self updateLabels];
+             }];
+            
+        
+        }
     
-    if (!performingReverseGeocoder) {
-        NSLog(@"************ start reverse gecoder");
+ 
+    }else if (distance < 1.0) {
         
-        performingReverseGeocoder = YES;
-        
-        [geocoder reverseGeocodeLocation:location completionHandler:
-         ^(NSArray *placemarks, NSError *error) {
-             NSLog(@"Found placemarks %@  error %@",placemarks,error);
-             
-             lastGeocoderError = error;
-             
-             if (error == nil && [placemarks count] > 0) {
-                 placemark = [placemarks lastObject];
-             }else{
-                 placemark = nil;
-             }
-             
-             performingReverseGeocoder = NO;
-             [self updateLabels];
-         }];
-        
+        NSTimeInterval timeInterval = [newLocation.timestamp timeIntervalSinceDate:location.timestamp];
+        if (timeInterval > 10) {
+            NSLog(@"*** Force done!");
+            [self stopUpdatingLocation];
+            [self updateLabels];
+            [self configureGetButton];
+        }
+
     }
     
 }
@@ -203,14 +248,14 @@
             
             if([lastLocationError.domain isEqualToString:kCLErrorDomain] && lastLocationError.code == kCLErrorDenied){
                 
-                statusMessage = @"Location Services disable";
+                statusMessage = @"location services disable";
             }else{
-                statusMessage = @"Error get Location";
+                statusMessage = @"error get Location";
             }
         }else if(![CLLocationManager locationServicesEnabled]){
             statusMessage = @"Location Services disable";
         }else if(updatingLocation){
-            statusMessage = @"Searching";
+            statusMessage = @"Searching...";
         }else{
             statusMessage = @"Press button to start..";
         }
