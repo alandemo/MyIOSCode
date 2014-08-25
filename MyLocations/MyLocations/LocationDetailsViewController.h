@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import "CategoryPickerViewController.h"
 
-@interface LocationDetailsViewController : UITableViewController
+@interface LocationDetailsViewController : UITableViewController <UITextViewDelegate,CategoryPickerViewControllerDelegate>
 
 @property (nonatomic,strong) IBOutlet UITextView* descriptionTextView;
 
@@ -21,6 +23,12 @@
 @property (nonatomic,strong) IBOutlet UILabel* addressLabel;
 
 @property (nonatomic,strong) IBOutlet UILabel* dateLabel;
+
+@property (nonatomic,assign) CLLocationCoordinate2D coordinate;
+
+@property (nonatomic,strong) CLPlacemark* placemark;
+
+
 
 - (IBAction)done:(id)sender;
 

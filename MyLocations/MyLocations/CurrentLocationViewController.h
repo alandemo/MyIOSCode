@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+
 @interface CurrentLocationViewController : UIViewController<CLLocationManagerDelegate>
 
 @property (nonatomic,strong) IBOutlet UILabel* messageLabel;

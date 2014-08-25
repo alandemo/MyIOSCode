@@ -7,12 +7,16 @@
 //
 
 #import "LocationDetailsViewController.h"
+#import "CategoryPickerViewController.h"
 
 @interface LocationDetailsViewController ()
 
 @end
 
-@implementation LocationDetailsViewController
+@implementation LocationDetailsViewController{
+    NSString* descriptionText;
+    NSString* categoryName;
+}
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
@@ -23,15 +27,60 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    
+    if(self = [super initWithCoder:aDecoder]){
+        descriptionText = @"";
+        categoryName = @"No Category";
+    }
+    return self;
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.descriptionTextView.text = descriptionText;
+    self.categoryLabel.text = categoryName;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.latitudeLabel.text = [NSString stringWithFormat:@"%.8f",self.coordinate.latitude];
+    self.longitudeLabel.text = [NSString stringWithFormat:@"%.8f",self.coordinate.longitude];
+    
+    if(self.placemark != nil){
+        
+        self.addressLabel.text = [self stringFromPlacemark:self.placemark];
+    }else{
+        
+        self.addressLabel.text = @"NO Address Found";
+    }
+    self.dateLabel.text = [self formatDate:[NSDate date]];
+}
+
+- (NSString*)stringFromPlacemark:(CLPlacemark*)thePlacemark
+{
+    
+    return [NSString stringWithFormat:@"%@, %@, %@, %@, %@, %@",
+            self.placemark.subThoroughfare,self.placemark.thoroughfare,
+            self.placemark.locality,self.placemark.administrativeArea,
+            self.placemark.postalCode,self.placemark.country];
+    
+}
+
+- (NSString *)formatDate:(NSDate *)theDate
+{
+    
+    static NSDateFormatter *formatter = nil;
+    if (formatter == nil) {
+        formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+    }
+
+    
+    return [formatter stringFromDate:theDate];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,24 +89,25 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-
-    // Return the number of sections.
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-
-    // Return the number of rows in the section.
-    return 0;
-}
+//#pragma mark - Table view data source
+//
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//
+//    // Return the number of sections.
+//    return 0;
+//}
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//
+//    // Return the number of rows in the section.
+//    return 0;
+//}
 
 - (IBAction)done:(id)sender
 {
+    NSLog(@"Description %@ ",descriptionText);
     
     [self closeScreen];
     
@@ -74,6 +124,71 @@
 {
     
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    if(indexPath.section == 0 && indexPath.row == 0){
+        
+        return 88;
+        
+    } else if (indexPath.section == 2 && indexPath.row == 2){
+        
+        CGRect rect = CGRectMake(100, 10, 190, 1000);
+        self.addressLabel.frame = rect;
+        [self.addressLabel sizeToFit];
+        
+        rect.size.height = self.addressLabel.frame.size.height;
+        self.addressLabel.frame = rect;
+        
+        return  self.addressLabel.frame.size.height + 20;
+        
+    }else{
+        
+        return 44;
+    }
+    
+}
+
+
+#pragma mark -UITextViewDlegate
+
+- (BOOL)textView:(UITextView *)theTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    
+    descriptionText = [theTextView.text stringByReplacingCharactersInRange:range withString:text];
+    return YES;
+    
+}
+
+- (void)textViewDidEndEditing:(UITextView *) theTextView
+{
+    
+    descriptionText = theTextView.text;
+    
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+    if ([segue.identifier isEqualToString:@"PickCategory"]) {
+        CategoryPickerViewController* controller = segue.destinationViewController;
+        controller.delegate = self;
+        controller.selectedCategoryName = categoryName;
+    }
+    
+}
+
+#pragma mark - CategoryPickerViewControllerDelegate
+
+-(void)categoryPicker:(CategoryPickerViewController *)picker didPickCategory:(NSString *)theCategoryName
+{
+    
+    categoryName = theCategoryName;
+    self.categoryLabel.text = categoryName;
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 
