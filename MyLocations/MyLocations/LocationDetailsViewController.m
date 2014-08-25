@@ -56,6 +56,25 @@
         self.addressLabel.text = @"NO Address Found";
     }
     self.dateLabel.text = [self formatDate:[NSDate date]];
+    
+    UITapGestureRecognizer* gestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyboard:)];
+    
+    gestureRecognizer.cancelsTouchesInView = NO;
+    [self.tableView addGestureRecognizer:gestureRecognizer];
+}
+
+-(void)hideKeyboard:(UITapGestureRecognizer *)gestureRecognizer
+{
+    
+    CGPoint point = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath* indexPath = [self.tableView indexPathForRowAtPoint:point];
+    
+    if(indexPath != nil && indexPath.section == 0 && indexPath.row == 0){
+        return;
+    }
+    
+    [self.descriptionTextView resignFirstResponder];
+    
 }
 
 - (NSString*)stringFromPlacemark:(CLPlacemark*)thePlacemark
@@ -189,6 +208,28 @@
     categoryName = theCategoryName;
     self.categoryLabel.text = categoryName;
     [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if(indexPath.section == 0|| indexPath.section == 1){
+        return indexPath;
+    }else{
+        return nil;
+    }
+    
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if(indexPath.section == 0 && indexPath.row == 0){
+        
+        [self.descriptionTextView becomeFirstResponder];
+        
+    }
     
 }
 
