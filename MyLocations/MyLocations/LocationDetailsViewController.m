@@ -126,9 +126,10 @@
 
 - (IBAction)done:(id)sender
 {
-    NSLog(@"Description %@ ",descriptionText);
+//    NSLog(@"Description %@ ",descriptionText);
+//    
+//    [self closeScreen];
     
-    [self closeScreen];
     
 }
 
